@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback, useRef} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   Text,
   View,
@@ -12,41 +12,32 @@ import {
 import styles from 'styles/listStyles';
 import constant from 'constant';
 
+// Get the deep link used to open the app
 const useMount = func => useEffect(() => func(), []);
-
 const useInitialURL = () => {
   const [url, setUrl] = useState(null);
   const [processing, setProcessing] = useState(true);
-
   useMount(() => {
     const getUrlAsync = async () => {
-      // Get the deep link used to open the app
-
       const initialUrl = await Linking.getInitialURL();
       setUrl(initialUrl);
-      console.log(initialUrl, 'initialUrl', processing);
       setProcessing(false);
     };
     getUrlAsync();
   });
-
   return {url, processing};
 };
 
 const List = props => {
   const {url, processing} = useInitialURL();
-
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [query, setQuery] = useState('');
   const [fullData, setFullData] = useState([]);
-
   const appState = useRef(AppState.currentState);
-  const [appStateVisible, setAppStateVisible] = useState(appState.current);
 
-  // state variables defined
-
+  // check app state
   useEffect(() => {
     AppState.addEventListener('change', _handleAppStateChange);
 
@@ -60,26 +51,20 @@ const List = props => {
       appState.current.match(/inactive|background/) &&
       nextAppState === 'active'
     ) {
-      // console.log(appState.current, 'foreground!');
     } else {
-      // console.log(appState.current, 'background!');
-      const k = Linking.addEventListener('url', link => {
+      Linking.addEventListener('url', link => {
         const {url} = link;
-        console.log(url, 'looooojujyy');
-
         setQuery(url.replace('ourwebsite://ourwebsite/', ' ').trim());
       });
     }
   };
 
   useEffect(() => {
-    setTimeout(() => {
-      if (!processing) {
-        if (url !== null) {
-          setQuery(url.replace('ourwebsite://ourwebsite/', ' ').trim());
-        }
+    if (!processing) {
+      if (url !== null) {
+        setQuery(url.replace('ourwebsite://ourwebsite/', ' ').trim());
       }
-    }, 1000);
+    }
     setIsLoading(true);
     fetch(constant.API_ENDPOINT)
       .then(response => response.json())
@@ -111,8 +96,6 @@ const List = props => {
       </View>
     );
   }
-  if (!error) {
-  }
   function renderHeader() {
     return (
       <View style={styles.header}>
@@ -142,7 +125,6 @@ const List = props => {
       ${item.address.toUpperCase()}
       ${item.city.toUpperCase()}
       `;
-
       const textData = text.toUpperCase();
       return itemData.indexOf(textData) > -1;
     });
