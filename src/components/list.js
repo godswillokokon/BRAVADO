@@ -23,7 +23,6 @@ const useInitialURL = () => {
       // Get the deep link used to open the app
 
       const initialUrl = await Linking.getInitialURL();
-      // console.log(test, 'test tsts');
       setUrl(initialUrl);
       console.log(initialUrl, 'initialUrl', processing);
       setProcessing(false);
@@ -61,23 +60,22 @@ const List = props => {
       appState.current.match(/inactive|background/) &&
       nextAppState === 'active'
     ) {
-      console.log(appState.current, 'App has come to the foreground!');
+      // console.log(appState.current, 'foreground!');
     } else {
-      console.log(appState.current, 'App has come to the foreground!');
+      // console.log(appState.current, 'background!');
+      const k = Linking.addEventListener('url', link => {
+        const {url} = link;
+        console.log(url, 'looooojujyy');
 
+        setQuery(url.replace('ourwebsite://ourwebsite/', ' ').trim());
+      });
     }
   };
 
   useEffect(() => {
-    Linking.addEventListener('url', link => ({
-      link,
-    }));
-
-    console.log(url, 'url', processing);
     setTimeout(() => {
       if (!processing) {
         if (url !== null) {
-          console.log(url, 'timer');
           setQuery(url.replace('ourwebsite://ourwebsite/', ' ').trim());
         }
       }
