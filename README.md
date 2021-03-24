@@ -15,7 +15,7 @@ This code snippet solves the following tasks.
 # - Search should support direct links (using browser url e.g. `/search/Boris`)
 
 
-![alt text](http://url/to/image.png)
+![Screenshot](image.jpeg)
 
 
 Test project by running;
