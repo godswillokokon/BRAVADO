@@ -4,7 +4,6 @@
 
 This code snippet solves the following tasks.
 
-## 1
 # - General application performance, including searching, scrolling and highlighting speed.
 
 # - Quality of React components.
