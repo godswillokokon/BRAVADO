@@ -60,3 +60,7 @@ buck-out/
 
 # Environment Variables
 .env
+yarn.lock
+ios/Bravado.xcodeproj/project.pbxproj
+ios/Bravado.xcodeproj/xcshareddata/xcschemes/Bravado.xcscheme
+
