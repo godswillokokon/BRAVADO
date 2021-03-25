@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Platform} from 'react-native';
 
 export default StyleSheet.create({
   container: {
@@ -70,12 +70,13 @@ export default StyleSheet.create({
   },
   header: {
     backgroundColor: '#fff',
-    padding: 10,
-    // marginVertical: 20,
+    padding: Platform.ios ? 10 : 0,
     borderRadius: 4,
     width: '95%',
     alignSelf: 'center',
     marginTop: 100,
+    height: 40,
+    justifyContent: 'center'
   },
   searchImage: {
     position: 'absolute',
@@ -85,7 +86,8 @@ export default StyleSheet.create({
     left: 8,
   },
   search: {
-    paddingHorizontal: 22,
+    paddingHorizontal: 20,
+    marginLeft: 5,
   },
   loader: {
     flex: 1,
