@@ -76,7 +76,7 @@ export default StyleSheet.create({
     alignSelf: 'center',
     marginTop: 100,
     height: 40,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   searchImage: {
     position: 'absolute',
